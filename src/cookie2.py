@@ -64,6 +64,8 @@ class Cookie(Pmf):
 class Bowl(object):
 
     def __init__(self, num_vanilla, num_chocolate):
+        '''A bowl object consists of a mix of vanilla and chocolate cookies
+        '''
         self._mix = {
             "vanilla": num_vanilla,
             "chocolate": num_chocolate
@@ -74,16 +76,20 @@ class Bowl(object):
 
     @property
     def mix(self):
+        '''Normalize the absolute values to proportions
+        '''
         total = sum(self._mix.values())
         return {k: float(v) / total for k, v in self._mix.items()}
 
 
 def main():
+    # Hypotheses: Two possible bowls to sample from
     hypos = ['Bowl 1', 'Bowl 2']
 
     pmf = Cookie(hypos)
 
-    dataset = ["vanilla", "chocolate", "vanilla"]
+    dataset = ["vanilla", "chocolate", "vanilla", "vanilla", "vanilla"]
+    # sample v, c, v from the two bowls at random
     for d in dataset:
         print "Data: {}".format(d)
         pmf.Update(d)
